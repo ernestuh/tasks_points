@@ -12,7 +12,6 @@ import (
 )
 
 func main() {
-	//fmt.Printf("Args: %#v\n", os.Args)
 	err := agerCmd()
 	if err != nil {
 		os.Exit(1000)
