@@ -1,0 +1,78 @@
+---
+- name: Install Docker
+  hosts: localhost
+  become: true
+  connection: local
+  vars_files:
+    - vars.yml
+
+# Install base packages to install docker
+  tasks:
+    - name: Install base dependencies
+      apt:
+        name: ['apt-transport-https', 'ca-certificates']
+        state: 'present'
+
+# Ensure docker package genuinity   
+    - name: Add docker repo apt key
+      apt_key:
+        url: 'https://download.docker.com/linux/ubuntu/gpg'
+        id: '9DC858229FC7DD38854AE2D88D81803C0EBFCD88'
+        state: 'present'
+      register: 'add_repository_key'
+      ignore_errors: true
+
+# Adding docker repo to fetch version depending of linux platform  
+    - name: 'Add Docker repository'
+      apt_repository:
+        repo: '{{ docker_apt_repository }}'
+        state: 'present'
+    - name: show apt_repository var
+      debug:
+        msg: docker apt repo {{ docker_apt_repository }} 
+
+# Creating custom configuration for docker data-root
+    - name: Create custom data Docker directory
+      file:
+        path: '{{ data_root }}'
+        state: 'directory'
+        mode: '0755'
+
+    - name: Create docker etc directory
+      file:
+        path: '/etc/docker'
+        state: 'directory'
+        mode: '0755'        
+
+    - name: 'Prepare daemon.js configuration'
+      template:
+        src: 'templates/daemon.json.j2'
+        dest: '/etc/docker/daemon.json'
+
+# Install docker_version (see vars.yml)
+    - name: 'Install docker'
+      apt:
+        update_cache: 'yes'
+        name: ['docker-ce={{ docker_version }}','docker-ce-cli={{ docker_version }}']
+        state: 'present'
+
+# Ensure docker service init after boot 
+    - name: 'Enable docker systemd service'
+      service:
+       name: 'docker'
+       state: 'started'
+       enabled: 'yes'
+
+# Adding vagrant user to docker group 
+    - name: 'Add users to docker group'
+      user:
+        name: '{{ item }}'
+        groups: 'docker'
+        append: 'yes'
+      with_items: '{{ docker_group_members }}'
+      when: 'docker_group_members is defined'
+
+# Refresh docker group
+    - name: 'Reload docker group'
+      shell: /usr/bin/newgrp docker
+         
