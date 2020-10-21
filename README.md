@@ -23,10 +23,10 @@ Pending
 
 As part of the Vagrant provisioning script, the ansible-playbook docker.yml is executed to complete the task 2.
 
-After the VM is up you can execute:
+After the VM is up, you can execute to check task 2 completion using:
 
-
+    ./tasks_points/task2/test_task2.sh
 
 # Task 3
 
-Almost done
+Almost done (working on Test Suite)
