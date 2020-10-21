@@ -30,6 +30,7 @@ Vagrant.configure("2") do |config|
    git clone https://github.com/ernestuh/$PROJECT_NAME.git
    chown -R vagrant:vagrant $PROJECT_NAME
    ansible-playbook $PROJECT_NAME/task2/docker.yml -vvv >> docker-ansible-output.log
+   chmod a+x $PROJECT_NAME/task2/test_task2.sh
    docker pull busybox
    apt install golang-go --yes
   SCRIPT
