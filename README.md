@@ -21,7 +21,7 @@ Pending
 
 # Task 2
 
-As part of the Vagrant provisioning script, the ansible-playbook docker.yml is executed to complete the task 2.
+As part of the Vagrant provisioning script, the ansible playbook file docker.yml is executed to complete the task 2.
 
 After the VM is up, you can execute to check task 2 completion using:
 
