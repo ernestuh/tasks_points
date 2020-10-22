@@ -50,8 +50,8 @@ func ager(name string, age string) {
 
 func validateArgs() error {
 	// set parameters spec
-	flag.String("n", "", "The name of the executor (required)")
-	flag.Int("a", 0, "The age of the executor (required)")
+	flag.String("n", "", "Name to show (required)")
+	flag.Int("a", 0, "Age to show (required)")
 	// check required parameters
 	if len(os.Args[1:]) < 2 {
 		return agerCmdHelpWithError("Invalid number of arguments")
