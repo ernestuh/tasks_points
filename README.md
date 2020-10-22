@@ -17,7 +17,7 @@ Note: The VM have a copy of the repo in the path /home/vagrant/task-points
 
 # Task 1
 
-Pending
+See folder.
 
 # Task 2
 
@@ -29,4 +29,9 @@ After the VM is up, you can execute to check task 2 completion using:
 
 # Task 3
 
-Almost done (working on Test Suite)
+Using the same Vagrant VM from task 2 to run the go program.
+
+    cd task_points/task3
+    go run ager.go .......
+    go test 
+
