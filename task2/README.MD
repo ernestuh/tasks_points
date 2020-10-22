@@ -15,4 +15,5 @@ As part of the Vagrant provisioning script, the ansible playbook file docker.yml
 
 After the VM is up, you can execute to check task 2 completion using:
 
-    ./tasks_points/task2/check_task2.sh
+    vagrant ssh  
+    ./tasks_points/task2/check_task2.sh  
