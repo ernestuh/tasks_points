@@ -5,7 +5,7 @@ For Task 2 and 3 could be used Vagrant to try the solution.
 Software Required:
 
 - Vagrant
-- Virtual Box or Hyper-V
+- Virtualbox or Hyper-V
 
 Execute:
 
@@ -25,7 +25,7 @@ As part of the Vagrant provisioning script, the ansible playbook file docker.yml
 
 After the VM is up, you can execute to check task 2 completion using:
 
-    ./tasks_points/task2/test_task2.sh
+    ./tasks_points/task2/check_task2.sh
 
 # Task 3
 

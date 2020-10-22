@@ -17,3 +17,9 @@ echo "*********************************"
 echo "*  List custom data-root folder *"
 echo "*********************************"
 sudo ls -la /data/docker
+
+printf "\n\n"
+echo "*********************************"
+echo "*  Check docker service         *"
+echo "*********************************"
+sudo systemctl list-units --type=service | grep docker
