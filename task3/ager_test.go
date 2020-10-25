@@ -1,47 +1,56 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"os"
 	"testing"
 )
 
-var oldArgs []string
-var err error
-
 func TestValidNoArguments(t *testing.T) {
-	defer func() { os.Args = oldArgs }()
-
 	// Test no arguments
 	argHelper("", "")
 
-	err = validateArgs()
+	err := validateArgs()
 	if err == nil {
-		t.Fail() // .Errorf("-n argument must be validate to alphabetic value")
+		t.Fail()
 	}
 }
 
 func TestValidateName(t *testing.T) {
-	defer func() { os.Args = oldArgs }()
-
 	// Test invalid name
 	argHelper("Ernest1", "5")
 
-	err = validateArgs()
+	err := validateArgs()
 	if err == nil {
-		t.Fail() // .Errorf("-n argument must be validate to alphabetic value")
+		t.Fail()
 	}
 }
 
 func TestValidateAge(t *testing.T) {
-	defer func() { os.Args = oldArgs }()
-
 	// Test age 0
 	argHelper("Ernest", "0")
 
 	err := validateArgs()
 	if err == nil {
-		t.Fail() // .Errorf("-n argument must be validate to alphabetic value")
+		t.Fail()
+	}
+}
+
+func TestArgCmdSucc(t *testing.T) {
+	// Test age 0
+	argHelper("Devops", "3")
+
+	cmdOutput, err := agerCmd()
+
+	// agerCmd execute without error
+	if err != nil {
+		t.Fail()
+	}
+
+	// Ensure output is correct
+	if !bytes.Contains(cmdOutput, []byte("Hi Devops, age: 3")) {
+		t.Fail()
 	}
 }
 

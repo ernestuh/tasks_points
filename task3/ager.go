@@ -12,23 +12,25 @@ import (
 )
 
 func main() {
-	err := agerCmd()
+	_, err := agerCmd()
 	if err != nil {
 		os.Exit(1000)
 	}
 }
 
-func agerCmd() error {
+func agerCmd() ([]byte, error) {
+	var cmdOutput []byte
+
 	err := validateArgs()
 	if err == nil {
 		name := flag.Lookup("n").Value.String()
 		age := flag.Lookup("a").Value.String()
-		ager(name, age)
+		cmdOutput, err = ager(name, age)
 	}
-	return err
+	return cmdOutput, err
 }
 
-func ager(name string, age string) {
+func ager(name string, age string) ([]byte, error) {
 	const dockerRunStr = `run|-i|--rm|busybox|sh|-c|echo Hi #arg1, age: #arg2;sleep #arg2;`
 	const appName = "docker"
 
@@ -44,8 +46,9 @@ func ager(name string, age string) {
 		fmt.Printf("%s", out)
 	} else {
 		fmt.Printf("Command Error: %s\n", err)
-		os.Exit(1000)
 	}
+
+	return out, err
 }
 
 func validateArgs() error {
